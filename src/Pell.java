@@ -1,16 +1,23 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Fibonacci {
+/**
+ * Created by Z_HAO on 2020/1/22
+ */
+public class Pell {
+    static final int MOD = 32767;
     public static void main(String[] args) {
         ArrayList<Integer> ans = new ArrayList<>();
         int l = 0;
         int r = 1;
-        int n = 21;
+        int n = 1000010;
         ans.add(l);
         ans.add(r);
         while(n -- > 0) {
-            int temp = l + r;
+            int temp = l + 2 * r;
+            if(temp >= MOD) {
+                temp %= MOD;
+            }
             ans.add(temp);
             l = r;
             r = temp;
