@@ -5,23 +5,23 @@ import java.util.*;
  */
 public class Merging {
     public static void main(String []args) throws Exception {
-        int n = new Scanner(System.in).nextInt();
-        int ch = System.in.read();
-        PriorityQueue<Integer> ans = new PriorityQueue<>();
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        PriorityQueue<Integer> ans = new PriorityQueue<>();
         int out = 0;
-        while(sc.hasNextInt()) {
-            ans.add(sc.nextInt());
+        for(int i = 0;i < n;i ++) {
+            int temp = sc.nextInt();
+            ans.add(temp);
         }
         while(ans.size() > 1) {
-            int l = ans.element();
+            int l = 0 , r = 0;
+            l = ans.element();
             ans.remove();
-            int r = 0;
             r = ans.element();
             ans.remove();
             out += l + r;
             ans.add(l + r);
         }
-        System.out.print(out);
+        System.out.println(out);
     }
 }
