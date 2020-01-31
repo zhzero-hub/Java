@@ -6,20 +6,20 @@ import java.util.Scanner;
 /**
  * Created by Z_HAO on 2020/1/27
  */
-class Node {
+class LefthandAndRighthand {
     int l;
     int r;
 
-    public Node(int a , int b) {
+    public LefthandAndRighthand(int a , int b) {
         l = a;
         r = b;
     }
 }
 
 public class KingGame {
-    static Comparator<Node> cmp = new Comparator<Node>() {
+    static Comparator<LefthandAndRighthand> cmp = new Comparator<LefthandAndRighthand>() {
         @Override
-        public int compare(Node a , Node b) {
+        public int compare(LefthandAndRighthand a , LefthandAndRighthand b) {
             return a.l * a.r - b.l * b.r;
         }
     };
@@ -27,16 +27,16 @@ public class KingGame {
     public static void main(String []args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        ArrayList<Node> ans = new ArrayList<>();
+        ArrayList<LefthandAndRighthand> ans = new ArrayList<>();
         int l , r;
         l = sc.nextInt();
         r = sc.nextInt();
-        Node king = new Node(l , r);
+        LefthandAndRighthand king = new LefthandAndRighthand(l , r);
         BigDecimal sum = new BigDecimal(l);
         for(int i = 1;i <= n;i ++) {
             l = sc.nextInt();
             r = sc.nextInt();
-            Node temp = new Node(l , r);
+            LefthandAndRighthand temp = new LefthandAndRighthand(l , r);
             ans.add(temp);
         }
         ans.sort(cmp);
