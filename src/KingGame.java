@@ -1,45 +1,54 @@
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
 /**
  * Created by Z_HAO on 2020/1/27
  */
 class Node {
-    int l = 0;
-    int r = 0;
+    int l;
+    int r;
 
     public Node(int a , int b) {
         l = a;
         r = b;
     }
 }
+
 public class KingGame {
-    static Comparator<Node> cmp = new Comparator<>() {
+    static Comparator<Node> cmp = new Comparator<Node>() {
         @Override
         public int compare(Node a , Node b) {
-            return b.l - a.l;
+            return a.l * a.r - b.l * b.r;
         }
     };
 
     public static void main(String []args) {
         Scanner sc = new Scanner(System.in);
-        PriorityQueue<Node> ans = new PriorityQueue<>();
         int n = sc.nextInt();
-        int sum = 0;
-        Node king = new Node(sc.nextInt() , sc.nextInt());
-        for(int i = 0;i < n;i ++) {
-            int t = sc.nextInt();
-            sum += t;
-            Node temp = new Node(t , sc.nextInt());
+        ArrayList<Node> ans = new ArrayList<>();
+        int l , r;
+        l = sc.nextInt();
+        r = sc.nextInt();
+        Node king = new Node(l , r);
+        BigDecimal sum = new BigDecimal(l);
+        for(int i = 1;i <= n;i ++) {
+            l = sc.nextInt();
+            r = sc.nextInt();
+            Node temp = new Node(l , r);
             ans.add(temp);
         }
-        int out = (int) 1e6;
-        while(!ans.isEmpty()) {
-            Node temp = ans.element();
-            ans.remove();
-            sum -= temp.l;
-
+        ans.sort(cmp);
+        for(int i = 0;i < n - 1;i ++) {
+            sum = sum.multiply(BigDecimal.valueOf(ans.get(i).l));
+        }
+        BigDecimal out = sum.divideToIntegralValue(BigDecimal.valueOf(ans.get(n - 1).r));
+        if(out.compareTo(new BigDecimal(0)) > 0) {
+            System.out.print(out);
+        }
+        else {
+            System.out.print("1");
         }
     }
 }
