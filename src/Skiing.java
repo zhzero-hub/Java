@@ -2,6 +2,7 @@ import java.util.*;
 
 /**
  * Created by Z_HAO on 2020/2/1
+ * 一个样例 MLE，想不到怎么优化
  */
 class Node {
     int x;
