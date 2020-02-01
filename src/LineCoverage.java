@@ -5,32 +5,32 @@ import java.util.Scanner;
 /**
  * Created by Z_HAO on 2020/1/31
  */
-class Node {
+class StartAndEnd {
     int start;
     int end;
-    public Node(int a , int b) {
+    public StartAndEnd(int a , int b) {
         start = a;
         end = b;
     }
 }
 public class LineCoverage {
-    static Comparator<Node> cmp = new Comparator<Node>() {
+    static Comparator<StartAndEnd> cmp = new Comparator<StartAndEnd>() {
         @Override
-        public int compare(Node node, Node t1) {
-            return node.end - t1.end;
+        public int compare(StartAndEnd startAndEnd, StartAndEnd t1) {
+            return startAndEnd.end - t1.end;
         }
     };
     public static void main(String []args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        ArrayList<Node> ans = new ArrayList<>();
+        ArrayList<StartAndEnd> ans = new ArrayList<>();
         for(int i = 0;i < n;i ++) {
-            ans.add(new Node(sc.nextInt() , sc.nextInt()));
+            ans.add(new StartAndEnd(sc.nextInt() , sc.nextInt()));
         }
         ans.sort(cmp);
         int now = 0;
         int out = 0;
-        for(Node x: ans) {
+        for(StartAndEnd x: ans) {
             if(now <= x.start) {
                 now = x.end;
                 out ++;

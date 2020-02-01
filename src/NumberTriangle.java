@@ -8,17 +8,13 @@ public class NumberTriangle {
     static int n;
     static int sum;
 
-    static void dfs(ArrayList<Integer> line , int n , int []visit , int [][]mul , int sum , ArrayList<Boolean> flag) {
+    static void dfs(ArrayList<Integer> line , int n , int []visit , int [][]mul , int s , int []flag) {
         if(line.size() == n) {
-            int s = 0;
-            for(int i = 0;i < n;i ++) {
-                s += mul[n - 1][i] * line.get(i);
-            }
             if(s == sum) {
                 for(int l: line) {
                     System.out.print(l + " ");
                 }
-                flag.add(true);
+                flag[0] = 1;
             }
             return;
         }
@@ -26,10 +22,17 @@ public class NumberTriangle {
             if(visit[i] == 0) {
                 visit[i] = 1;
                 line.add(i);
-                dfs(line , n , visit , mul , sum , flag);
-                if(!flag.isEmpty() && flag.get(0)) {
+                s += mul[n - 1][line.size() - 1] * i;
+                if(s > sum) {
+                    visit[i] = 0;
+                    line.remove(line.remove(line.size() - 1));
                     return;
                 }
+                dfs(line , n , visit , mul , s , flag);
+                if(flag[0] == 1) {
+                    return;
+                }
+                s -= mul[n - 1][line.size() - 1] * i;
                 visit[i] = 0;
                 line.remove(line.size() - 1);
             }
@@ -51,7 +54,7 @@ public class NumberTriangle {
         sum = sc.nextInt();
         ArrayList<Integer> line = new ArrayList<>();
         int []visit = new int [n + 1];
-        ArrayList<Boolean> flag = new ArrayList<>();
-        dfs(line , n , visit , mul , sum , flag);
+        int []flag = new int [1];
+        dfs(line , n , visit , mul , 0 , flag);
     }
 }
