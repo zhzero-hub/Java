@@ -1,5 +1,8 @@
 package com.org.mygui;
 
+import com.org.mygui.listener.ExitActionListener;
+import com.org.mygui.listener.TextActionListener;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,30 +43,13 @@ public class MyFrameTwo {
         Button button = new Button("Exit");
         button.setActionCommand("Button-exit");
         panel.add(button , BorderLayout.SOUTH);
-        button.addActionListener(new Action());
+        button.addActionListener(new ExitActionListener());
 
         TextField textField = new TextField();
         textField.setSize(400, 200);
         //textField.setEchoChar('*');
         panel.add(textField , BorderLayout.CENTER);
 
-        textField.addActionListener(new TextAction());
-    }
-}
-
-class Action implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        System.out.println("Exit: " + actionEvent.getActionCommand());
-        System.exit(0);
-    }
-}
-
-class TextAction implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        TextField textField = (TextField)actionEvent.getSource();
-        System.out.println(textField.getText());
-        textField.setText("");
+        textField.addActionListener(new TextActionListener());
     }
 }
