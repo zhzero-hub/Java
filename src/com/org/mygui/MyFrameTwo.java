@@ -23,7 +23,6 @@ public class MyFrameTwo {
         });
     }
 
-
     public static void main(String[] args) {
         Frame frame = new Frame("My GUI2");
         frame.setLayout(null);
