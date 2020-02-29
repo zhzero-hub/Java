@@ -1,11 +1,11 @@
 package com.org.mygui.frame;
 
-import com.org.mygui.listener.CalActionListener;
 import com.org.mygui.listener.CloseWindowListener;
 import com.org.mygui.listener.TextActionListener;
 
 import java.awt.*;
-import java.util.concurrent.Flow;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Z_HAO 2020/2/29
@@ -13,8 +13,12 @@ import java.util.concurrent.Flow;
 public class MyFrame3 extends Frame {
     private static int X = 1200;
     private static int Y = 800;
-    String ver = "v1.0.0";
+    String ver = "v1.0.1";
     private static FlowLayout Layout = new FlowLayout(FlowLayout.CENTER);
+
+    private TextField firstText;
+    private TextField secondText;
+    private TextField answerText;
 
     private void createFrame() {
         setTitle("Calculator " + ver);
@@ -52,23 +56,39 @@ public class MyFrame3 extends Frame {
         return label;
     }
 
-    private Button createButton(TextField first , TextField second , TextField answer) {
+    private Button createButton() {
         Button button = new Button("=");
         //button.setSize(200 , 100);
-        button.addActionListener(new CalActionListener(first , second , answer));
+        button.addActionListener(new CalActionListener());
         button.setVisible(true);
         return button;
     }
 
     public void run() {
         createFrame();
-        TextField firstText = createTextField(400 , 200);
-        TextField secondField = createTextField(400 , 200);
-        TextField answerField = createTextField(400 , 200);
+        firstText = createTextField(400 , 200);
+        secondText = createTextField(400 , 200);
+        answerText = createTextField(400 , 200);
         add(firstText);
         add(createLabel("+" , 200 , 100));
-        add(secondField);
-        add(createButton(firstText , secondField , answerField));
-        add(answerField);
+        add(secondText);
+        add(createButton());
+        add(answerText);
+    }
+
+    private class CalActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            if(firstText.getText().isEmpty() || secondText.getText().isEmpty()) {
+                answerText.setText("Error!");
+                return;
+            }
+            int a = Integer.parseInt(firstText.getText());
+            int b = Integer.parseInt(secondText.getText());
+            int ans = a + b;
+            answerText.setText(String.valueOf(ans));
+            firstText.setText("");
+            secondText.setText("");
+        }
     }
 }
