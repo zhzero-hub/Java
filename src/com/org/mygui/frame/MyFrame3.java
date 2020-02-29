@@ -13,9 +13,11 @@ import java.util.concurrent.Flow;
 public class MyFrame3 extends Frame {
     private static int X = 1200;
     private static int Y = 800;
-    private static FlowLayout Layout = new FlowLayout();
+    String ver = "v1.0.0";
+    private static FlowLayout Layout = new FlowLayout(FlowLayout.CENTER);
 
     private void createFrame() {
+        setTitle("Calculator " + ver);
         setLayout(null);
         setBounds(0 , 0 , X , Y);
         setBackground(new Color(255 , 255 , 255));
@@ -52,7 +54,7 @@ public class MyFrame3 extends Frame {
 
     private Button createButton(TextField first , TextField second , TextField answer) {
         Button button = new Button("=");
-        button.setSize(200 , 100);
+        //button.setSize(200 , 100);
         button.addActionListener(new CalActionListener(first , second , answer));
         button.setVisible(true);
         return button;
