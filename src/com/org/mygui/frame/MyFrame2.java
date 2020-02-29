@@ -23,7 +23,7 @@ public class MyFrame2 extends Frame {
         Panel panel = new Panel();
         panel.setLayout(new BorderLayout());
         panel.setBackground(new Color(120 , 120 , 120));
-        panel.setBounds(100 , Y / 2 , X / 2 , Y / 2);
+        panel.setBounds(10 , Y / 2 , X - 20 , Y / 2);
         add(panel);
 
         Button button = new Button("Exit");
@@ -34,7 +34,7 @@ public class MyFrame2 extends Frame {
         TextField textField = new TextField();
         textField.setSize(400, 200);
         textField.setEchoChar('*');
-        panel.add(textField , BorderLayout.CENTER);
+        panel.add(textField);
         textField.addActionListener(new TextActionListener());
     }
 }
