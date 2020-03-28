@@ -127,7 +127,6 @@ public class DivideConquer {
     public static void main(String[] args) {
         int n = 105;
         int []a = new int [n + 1];
-        Random random = new Random();
         for(int i = 1;i <= n;i ++) {
             a[i] = i;
         }
