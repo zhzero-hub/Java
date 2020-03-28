@@ -1,24 +1,19 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
+/**
+ * @author Z_HAO
+ */
 public class Fibonacci {
+    public static int f(int[] array , int i) {
+        if(array[i] != 0) {
+            return array[i];
+        }
+        array[i] = f(array, i - 1) + f(array, i - 2);
+        return array[i];
+    }
+
     public static void main(String[] args) {
-        ArrayList<Integer> ans = new ArrayList<>();
-        int l = 0;
-        int r = 1;
-        int n = 21;
-        ans.add(l);
-        ans.add(r);
-        while(n -- > 0) {
-            int temp = l + r;
-            ans.add(temp);
-            l = r;
-            r = temp;
-        }
-        n = new Scanner(System.in).nextInt();
-        for(int j = 1;j <= n;j ++) {
-            int i = new Scanner(System.in).nextInt();
-            System.out.println(ans.get(i));
-        }
+        int n = 10010;
+        int []array = new int[n + 1];
+        array[1] = array[2] = 1;
+        System.out.println(f(array , 6));
     }
 }
