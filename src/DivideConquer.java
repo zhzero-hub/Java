@@ -93,7 +93,7 @@ public class DivideConquer {
         int pos = 1;
         for(int i = l;i + 4 <= r;i += 5) {
             Arrays.sort(a , i , i + 5);
-            mid[pos ++] = a[i + 3];
+            mid[pos ++] = a[i + 2];
         }
         int mm = select(mid , 1 , q , (q + 1) / 2);;
         int []a1 = new int[p + 1];
