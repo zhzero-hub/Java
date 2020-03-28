@@ -95,7 +95,7 @@ public class DivideConquer {
             Arrays.sort(a , i , i + 5);
             mid[pos ++] = a[i + 2];
         }
-        int mm = select(mid , 1 , q , (q + 1) / 2);;
+        int mm = select(mid , 1 , q , (q + 1) / 2);
         int []a1 = new int[p + 1];
         int pos1 = 1;
         int []a2 = new int[p + 1];
@@ -131,7 +131,6 @@ public class DivideConquer {
         for(int i = 1;i <= n;i ++) {
             a[i] = i;
         }
-        ArrayList<Integer> b = new ArrayList<>();
         System.out.println(select(a , 1 , n , 17));
     }
 }
