@@ -1,9 +1,13 @@
+import javafx.util.Pair;
+
+import java.nio.file.Path;
 import java.util.*;
 
 /**
  * @author Z_HAO 2020/3/28
  */
 public class DivideConquer {
+    static int COUNT = 0;
     public static int countTime(int []a , int l , int r , int x) {
         if(l == r) {
             if(a[l] == x) {
@@ -124,13 +128,130 @@ public class DivideConquer {
         }
     }
 
-    public static void main(String[] args) {
-        int n = 105;
-        int []a = new int [n + 1];
-        for(int i = 1;i <= n;i ++) {
-            a[i] = i;
+    public static void qsort(int []a , int p , int q) {
+        int mid = a[(p + q) / 2];
+        int l = p , r = q;
+        while(l <= r) {
+            while(a[l] < mid) {
+                COUNT ++;
+                l ++;
+            }
+            while(a[r] > mid) {
+                COUNT ++;
+                r --;
+            }
+            if(l <= r) {
+                int t = a[l];
+                a[l] = a[r];
+                a[r] = t;
+                l ++;
+                r --;
+            }
         }
-        System.out.println(select(a , 1 , n , 17));
+        if(l < q) {
+            qsort(a , l , q);
+        }
+        if(r > p) {
+            qsort(a , p , r);
+        }
+    }
+
+    public static void dfs(int []a , int i , int n , int []visit) {
+        if(i == n) {
+            int []b = Arrays.copyOf(a , a.length);
+            qsort(b , 0 , b.length - 1);
+            if(COUNT == 7) {
+                System.out.println(Arrays.toString(a));
+            }
+            COUNT = 0;
+        }
+        for(int j = 0;j < n;j ++) {
+            if(visit[j] == 0) {
+                visit[j] = 1;
+                a[i] = j;
+                dfs(a , i + 1 , n , visit);
+                a[i] = 0;
+                visit[j] = 0;
+            }
+        }
+    }
+
+    public static Pair<Integer, Integer> findMaxPair(int []a , int l , int r) {
+        if(r - l <= 1) {
+            if(a[l] < a[r]) {
+                return new Pair<>(a[l] , a[r]);
+            }
+            return new Pair<>(a[r] , a[l]);
+        }
+        int mid = (l + r) / 2;
+        Pair<Integer, Integer> lPair = findMaxPair(a , l , mid);
+        Pair<Integer, Integer> rPair = findMaxPair(a , mid + 1 , r);
+        if(lPair.getValue() >= rPair.getValue()) {
+            if(lPair.getKey() >= rPair.getValue()) {
+                return lPair;
+            }
+            else {
+                return new Pair<>(rPair.getValue() , lPair.getValue());
+            }
+        }
+        else {
+            if(lPair.getValue() <= rPair.getKey()) {
+                return rPair;
+            }
+            else {
+                return new Pair<>(lPair.getValue() , rPair.getValue());
+            }
+        }
+    }
+
+    public static int findSecondMax(int []a , int l , int r) {
+        if((r - l + 1) % 2 == 1) {
+            Pair<Integer, Integer> pair = findMaxPair(a , l , r - 1);
+            if(pair.getValue() < a[r]) {
+                return pair.getValue();
+            }
+            else {
+                if(a[r] > pair.getKey()) {
+                    return a[r];
+                }
+                else {
+                    return pair.getKey();
+                }
+            }
+        }
+        else {
+            return findMaxPair(a , l , r).getKey();
+        }
+    }
+
+    public static void change(int []a , int n) {
+        int l = 1 , r = n;
+        while(l <= r) {
+            while(a[l] < 0) {
+                l ++;
+            }
+            while(a[r] > 0) {
+                r --;
+            }
+            if(l <= r) {
+                int t = a[l];
+                a[l] = a[r];
+                a[r] = t;
+                l ++;
+                r --;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 5;
+        int []a = new int [n + 1];
+        Random random = new Random();
+        for(int i = 1;i <= n;i ++) {
+            a[i] = random.nextInt(100);
+        }
+        System.out.println(Arrays.toString(a));
+        System.out.println(findSecondMax(a , 1 , n));
     }
 }
 
